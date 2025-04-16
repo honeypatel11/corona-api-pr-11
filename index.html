@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COVID-19 Tracker</title>
+    <link rel="stylesheet" href="./assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+</head>
+
+<body>
+
+   
+
+    <div class="tracker-container container text-center shadow-lg">
+        <h1 class="main-title mb-4">
+            COVID-19 CASES
+            <img src="" alt="" id="country-flag" class="" />
+        </h1>
+
+        <div class="mb-4 d-flex justify-content-center gap-2 flex-wrap">
+            <input type="text" id="state-input" class="form-control w-50" placeholder="Enter your state" />
+            <button id="check-btn" class="btn btn-dark">Check</button>
+        </div>
+
+        <div id="custom-output" class="text-danger mb-3"></div>
+
+    
+        <div class="stat-cards row justify-content-center">
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="stat-card bg-primary text-white p-4 rounded shadow-sm">
+                    <h5><i class="bi bi-graph-up-arrow fs-2"></i></h5>
+                    <h4>Total Confirmed</h4>
+                    <p id="total-confirmed" class="badge fs-5 bg-light text-dark">0</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="stat-card bg-success text-white p-4 rounded shadow-sm">
+                    <h5><i class="bi bi-heart-pulse fs-2"></i></h5>
+                    <h4>Discharged</h4>
+                    <p id="discharged" class="badge fs-5 bg-light text-dark">0</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="stat-card bg-danger text-white p-4 rounded shadow-sm">
+                    <h5><i class="bi bi-emoji-dizzy fs-2"></i></h5>
+                    <h4>Deaths</h4>
+                    <p id="deaths" class="badge fs-5 bg-light text-dark">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+        <script>
+    document.getElementById("check-btn").addEventListener("click", function () {
+        let ctName = document.getElementById("state-input").value.trim();
+        const url = "https://api.rootnet.in/covid19-in/stats/latest";
+
+        document.getElementById("custom-output").innerHTML = "";
+        document.getElementById("total-confirmed").innerText = "0";
+        document.getElementById("discharged").innerText = "0";
+        document.getElementById("deaths").innerText = "0";
+
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                let states = res.data.regional;
+                let found = false;
+
+                states.forEach((state) => {
+                    if (state.loc.toLowerCase() === ctName.toLowerCase()) {
+                        found = true;
+
+                        document.getElementById("total-confirmed").innerText = state.totalConfirmed;
+                        document.getElementById("discharged").innerText = state.discharged;
+                        document.getElementById("deaths").innerText = state.deaths;
+                    }
+                });
+
+                if (!found) {
+                    document.getElementById("custom-output").innerText = "State not found. Please check the name.";
+                }
+            })
+          
+    });
+</script>
+   
+  
+</body>
+
+</html>

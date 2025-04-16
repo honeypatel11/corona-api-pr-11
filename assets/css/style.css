@@ -1,0 +1,80 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8b88b, #faaa82, #e6ccff);
+  background-size: cover;
+  margin: 0;
+  padding: 20px;
+}
+
+.tracker-container {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px 20px;
+  border-radius: 25px;
+  max-width: 900px;
+  width: 100%;
+}
+
+.main-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.stat-card {
+  transition: transform 0.3s ease-in-out;
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+}
+
+.badge {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.virus-animation img {
+  position: absolute;
+  width: 60px;
+  opacity: 0.3;
+}
+.virus-animation {
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+}
+
+.virus-animation img:nth-child(1) { right: -6rem; top: -8rem; }
+.virus-animation img:nth-child(2) { left: -38rem; top: -3rem; }
+.virus-animation img:nth-child(3) { left: -6rem; bottom: -42rem; }
+.virus-animation img:nth-child(4) { left: -36rem; bottom: -42rem; }
+
+.virus-animation {
+  animation: floatUpDown 10s ease-in-out infinite alternate-reverse;
+  position: absolute;
+  right: 300px;
+}
+
+@keyframes floatUpDown {
+  0%, 100% {
+    top: 150px;
+  }
+  50% {
+    top: 250px;
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .flag-icon {
+    width: 30px;
+  }
+  .main-title {
+    font-size: 1.5rem;
+  }
+}
